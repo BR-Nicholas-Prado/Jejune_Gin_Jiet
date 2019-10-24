@@ -1,0 +1,52 @@
+
+# common
+
+site id : devops
+
+data directory : /opt/microworx/$site id$Data
+
+local ip : 127.0.0.1
+
+containers to run :
+ - rabbit mq
+ - mongo db
+ - hello world
+
+# rabbit mq
+
+dockerImageRabbit : rabbitmq:3.7-alpine
+rabbitUser : userofrabbit
+rabbitPass : tUsObKKCmbitIp
+rabbitIp : $localIp$
+rabbitPort : 5672
+rabbitName : $siteId$_accessregistry_rabbit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

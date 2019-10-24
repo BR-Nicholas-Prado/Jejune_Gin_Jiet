@@ -1,0 +1,11 @@
+
+Jejune Gin Jiet
+
+Copyright Nicholas Prado, released under terms of Mozilla Public license v2.0 (or the latest), as described at https://www.mozilla.org/en-US/MPL/2.0/ and reproduced here in mozilla-v2.0.txt . JGJ was first published during late 2019.
+
+Jejune Gin Jiet relies on  
+* picocli, which is copyright rpopma (aka Remko Popma) released under Apache v2.0 license terms.
+* Dockerfile Java Wrapper, which is copyright roadmapper (aka Vinay Dandekar) released under Apache v2.0 license terms.
+* Docker Client, which is copyright Spotify released under Apache v2.0 license terms.
+* Enohar, which is copyright Nzen (aka Nicholas Prado) released under MIT v2.0 license terms.
+

@@ -1,0 +1,8 @@
+/bin/
+/bin_of_tests/
+/mlib/
+/mods/
+/target/
+/.settings/
+.classpath
+.project

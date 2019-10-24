@@ -1,0 +1,50 @@
+
+= Jejune Gin Jiet
+
+== Purpose
+
+Run some docker containers with the assumption that they'll share some information, especially ip and port.
+
+== Run
+
+`java -jar jejune_gin_jiet-vXX.jar -c config.eno`
+
+-c is a command line argument to proceed a configuration file. It is currently capable of consuming an eno file.
+
+== License
+
+Jejune Gin Jiet is available under the terms of the Mozilla Public license, in the latest version (contemporarily v2.0).
+
+== Name
+
+Jiet is a romanized word for numeral 1 in the Mien dialect of Chinese.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
