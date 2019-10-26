@@ -10,7 +10,7 @@
 		-->
 	<modelVersion>
 		4.0.0
-	</modelVersion>
+		</modelVersion>
 	<groupId>
 		ws.nzen.runtime.docker
 		</groupId>
@@ -342,13 +342,13 @@
 					UTC-06:00
 					</timezone>
 			</developer>
+		</developers>
 	<!--
 		contributors
 		ssueManagement
 		ciManagement
 		mailingLists
 		-->
-		</developers>
 	<scm>
 		<connection>
 			scm:git:https://github.com/BR-Nicholas-Prado/Jejune_Gin_Jiet.git
@@ -568,9 +568,9 @@
 				</build>
 			</profile>
 		<profile>
-			<!-- profile to compile as java 12 for local repo -->
+			<!-- profile to compile as java v(latest) for local repo -->
 			<id>
-				j12
+				j13
 				</id>
 			<build>
 				<plugins>
@@ -589,7 +589,7 @@
 							<toolchains>
 								<jdk>
 									<version>
-										[12,)
+										[13,)
 										</version>
 									</jdk>
 								</toolchains>
@@ -617,13 +617,13 @@
 							</version>
 						<configuration>
 							<source>
-								12
+								13
 								</source>
 							<target>
-								12
+								13
 								</target>
 							<release>
-								12
+								13
 								</release>
 							<encoding>
 								UTF-8
@@ -1017,9 +1017,9 @@
 				</build>
 			</profile>
 		<profile>
-			<!-- publish java 12 to maven -->
+			<!-- publish java v(latest) to maven -->
 			<id>
-				j12-r
+				j13-r
 				</id>
 			<build>
 				<plugins>
@@ -1038,7 +1038,7 @@
 							<toolchains>
 								<jdk>
 									<version>
-										[12,)
+										[13,)
 										</version>
 									</jdk>
 								</toolchains>
@@ -1066,13 +1066,13 @@
 							</version>
 						<configuration>
 							<source>
-								12
+								13
 								</source>
 							<target>
-								12
+								13
 								</target>
 							<release>
-								12
+								13
 								</release>
 							<encoding>
 								UTF-8
