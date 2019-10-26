@@ -1,27 +1,81 @@
 
+verbosity : recipe
+
 # common
 
-site id : devops
-
-data directory : /opt/microworx/$site id$Data
-
-local ip : 127.0.0.1
-
-containers to run :
- - rabbit mq
- - mongo db
- - hello world
+	site id : devops
+	
+	data directory : /opt/microworx/$site id$Data
+	
+	local ip : 127.0.0.1
+	
+	common container name : helloworld
+	
+	containers to run :
+	- rabbit mq
+	- mongo db
+	- hello world
 
 # rabbit mq
 
-dockerImageRabbit : rabbitmq:3.7-alpine
-rabbitUser : userofrabbit
-rabbitPass : tUsObKKCmbitIp
-rabbitIp : $localIp$
-rabbitPort : 5672
-rabbitName : $siteId$_accessregistry_rabbit
+	type : messaging container
+	
+	image : rabbitmq:3.7-alpine
+	rabbit user : userofrabbit
+	rabbit password : tUsObKKCmbitIp
+	rabbit ip : $local ip$
+	rabbit port : 5672
+	rabbit name : $site id$_accessregistry_rabbit
+	
+	## docker recipe
+	
+		recipe :
+		- docker stop $rabbit name$
+		- docker rm $rabbit name$
+		> - echo > probably by log level
+		- run
+		
+		run :
+		`-d` =
+		> -it =
+		`--restart` = always
+		`-e` = $environment variables$
+		`-v` = $volumes$
+		`-p` = $ports$
+		`--hostname` = $rabbit name$
+		`--name` = $rabbit name$
+		
+		volumes :
+			$common container name$-rabbit = /var/lib/rabbit
+		
+		environment variables :
+			RABBITMQ_DEFAULT_USER = $rabbit user$
+			RABBITMQ_DEFAULT_PASS = $rabbit password$
+		
+		ports :
+			4369 = 4369
+			$rabbit port$ = 5672
+			5671 = 5671
 
+# mongo db
 
+	type : data container
+	
+	image : mongo:4.2
+	mongo user : brsWorker
+	mongo password : G1vqv5851naC0Wqn
+	mongo ip : $local id$
+	mongo port : 27017
+	mongo name : $site id$_$common container name$_mongodb
+
+# hello world
+
+	type : springboot container
+	
+	dockerImageAccessRegistry : openjdk:8-jre-alpine
+	servlet ip : $local ip$
+	servlet port : 31082
+	servlet name : $site id$_$common container name$_servlet$servlet id$
 
 
 
