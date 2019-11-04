@@ -40,19 +40,19 @@ verbosity : recipe
 		> -it =
 		`--restart` = always
 		`-e` = $environment variables$
-		`-v` = $volumes$
-		`-p` = $ports$
+		`-v` = $rabbit volumes$
+		`-p` = $rabbit ports$
 		`--hostname` = $rabbit name$
 		`--name` = $rabbit name$
 		
-		volumes :
+		rabbit volumes :
 			$common container name$-rabbit = /var/lib/rabbit
 		
-		environment variables :
+		rabbit environment variables :
 			RABBITMQ_DEFAULT_USER = $rabbit user$
 			RABBITMQ_DEFAULT_PASS = $rabbit password$
 		
-		ports :
+		rabbit ports :
 			4369 = 4369
 			$rabbit port$ = 5672
 			5671 = 5671
