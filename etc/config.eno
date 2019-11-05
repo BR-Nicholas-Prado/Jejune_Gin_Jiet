@@ -1,4 +1,6 @@
 
+> legend : $name$ resolve across entire document. ^name^ resolve within this section
+
 verbosity : recipe
 
 # common
@@ -18,7 +20,7 @@ verbosity : recipe
 
 # rabbit mq
 
-	type : messaging container
+	container type : messaging container
 	
 	image : rabbitmq:3.7-alpine
 	rabbit user : userofrabbit
@@ -27,39 +29,37 @@ verbosity : recipe
 	rabbit port : 5672
 	rabbit name : $site id$_accessregistry_rabbit
 	
-	## docker recipe
+	recipe :
+	- docker stop $rabbit name$
+	- docker rm $rabbit name$
+	> - echo $run$ > or echo the next one as a special flag ? or choose by log level
+	- docker run ^run args^ ^image^
 	
-		recipe :
-		- docker stop $rabbit name$
-		- docker rm $rabbit name$
-		> - echo > probably by log level
-		- run
-		
-		run :
-		`-d` =
-		> -it =
-		`--restart` = always
-		`-e` = $environment variables$
-		`-v` = $rabbit volumes$
-		`-p` = $rabbit ports$
-		`--hostname` = $rabbit name$
-		`--name` = $rabbit name$
-		
-		rabbit volumes :
-			$common container name$-rabbit = /var/lib/rabbit
-		
-		rabbit environment variables :
-			RABBITMQ_DEFAULT_USER = $rabbit user$
-			RABBITMQ_DEFAULT_PASS = $rabbit password$
-		
-		rabbit ports :
-			4369 = 4369
-			$rabbit port$ = 5672
-			5671 = 5671
+	run args :
+	`-d` =
+	> -it =
+	`--restart` = always
+	`-e` = $rabbit environment variables$
+	`-v` = $rabbit volumes$
+	`-p` = $rabbit ports$
+	`--hostname` = $rabbit name$
+	`--name` = $rabbit name$
+	
+	rabbit volumes :
+		$common container name$-rabbit = /var/lib/rabbit
+	
+	rabbit environment variables :
+		RABBITMQ_DEFAULT_USER = $rabbit user$
+		RABBITMQ_DEFAULT_PASS = $rabbit password$
+	
+	rabbit ports :
+		4369 = 4369
+		$rabbit port$ = 5672
+		5671 = 5671
 
 # mongo db
 
-	type : data container
+	container type : data container
 	
 	image : mongo:4.2
 	mongo user : brsWorker
@@ -67,15 +67,96 @@ verbosity : recipe
 	mongo ip : $local id$
 	mongo port : 27017
 	mongo name : $site id$_$common container name$_mongodb
+	
+	recipe :
+	- docker stop $mongo name$
+	- docker rm $mongo name$
+	- docker run ^run args^ ^image^ mongod
+	
+	run args :
+	`-d` =
+	`--restart` = always
+	`-e` = $mongo environment variables$
+	`-v` = $mongo volumes$
+	`-p` = $mongo ports$
+	`--hostname` = $mongo name$
+	`--name` = $mongo name$
+	
+	mongo environment variables :
+		MONGO_INITDB_ROOT_USERNAME = $mongo user$
+		MONGO_INITDB_ROOT_PASSWORD = $mongo password$
+	
+	mongo volumes :
+		$common container name$-mongo = /data/db
+	
+	mongo ports :
+		$mongo port$ = 27017
 
 # hello world
 
-	type : springboot container
+	container type : springboot container
 	
-	dockerImageAccessRegistry : openjdk:8-jre-alpine
+	image : openjdk:8-jre-alpine
 	servlet ip : $local ip$
 	servlet port : 31082
-	servlet name : $site id$_$common container name$_servlet$servlet id$
+	servlet name : $site id$_$common container name$_servlet
+	>> fix this is just a copy of mongo, so far
+	recipe :
+	- docker stop $servlet name$
+	- docker rm $servlet name$
+	- docker run ^run args^ ^image^ nnn
+	
+	run args :
+	`-d` =
+	`--restart` = always
+	`-e` = $servlet environment variables$
+	`-v` = $servlet volumes$
+	`-p` = $servlet ports$
+	`--hostname` = $servlet name$
+	`--name` = $servlet name$
+	
+	servlet environment variables :
+		MONGO_INITDB_ROOT_USERNAME = $mongo user$
+		MONGO_INITDB_ROOT_PASSWORD = $mongo password$
+	
+	servlet volumes :
+		$common container name$-mongo = /data/db
+	
+	servlet ports :
+		$mongo port$ = 27017
+
+-- original
+dockerArgsAccessRegistry+=" -v accessregistry-servlet:/media/host"
+#set springboot variables
+dockerArgsAccessRegistry+=" -e SPRING_RABBITMQ_HOST="$rabbitIp" "
+dockerArgsAccessRegistry+=" -e SPRING_RABBITMQ_PORT="$rabbitPort" "
+dockerArgsAccessRegistry+=" -e SPRING_RABBITMQ_USERNAME="$rabbitUser" "
+dockerArgsAccessRegistry+=" -e SPRING_RABBITMQ_PASSWORD="$rabbitPass" "
+
+dockerArgsAccessRegistry+=" -e SPRING_DATA_MONGODB_HOST="$mongoIp" "
+dockerArgsAccessRegistry+=" -e SPRING_DATA_MONGODB_PORT=27017 "
+dockerArgsAccessRegistry+=" -e SPRING_DATA_MONGODB_USERNAME="$mongoUser" "
+dockerArgsAccessRegistry+=" -e SPRING_DATA_MONGODB_PASSWORD="$mongoPass" "
+
+dockerArgsAccessRegistry+=" -e SERVER_PORT=8080"
+
+#map ports
+dockerArgsAccessRegistry+=" -p "$servletPort":8080 "
+#set names
+dockerArgsAccessRegistry+=" --hostname "$servletName" "
+dockerArgsAccessRegistry+=" --name "$servletName" "
+
+#set command to run
+dockerCommandAccessRegistry=" java -jar /media/host/mw-accessRegistry-servlet.jar --shared-hash brsHash --external-ipv4 "$servletIp" --external-port "$servletPort
+docker stop $servletName
+docker rm $servletName
+echo "docker run "$dockerArgsAccessRegistry" "$dockerImageAccessRegistry" " $dockerCommandAccessRegistry
+docker run $dockerArgsAccessRegistry $dockerImageAccessRegistry $dockerCommandAccessRegistry
+#echo "docker cp mw-accessRegistry-servlet*T.jar "$servletName":/media/host/mw-accessRegistry-servlet.jar"
+#docker cp mw-accessRegistry-servlet*T.jar $servletName:/media/host/mw-accessRegistry-servlet.jar
+#echo "docker exec -d "$servletName" "$dockerCommandAccessRegistry
+#docker exec -d $servletName $dockerCommandAccessRegistry
+-- original
 
 
 

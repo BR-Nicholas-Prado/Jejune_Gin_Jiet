@@ -1,0 +1,48 @@
+
+# issue 191104_20
+
+## body
+
+assignee : Nicholas
+
+title :
+	| run containers from eno file
+
+status : in progress
+
+priority : high
+
+-- desc
+Represent current recipe in an eno file
+Model containers in memory
+Start specified containers with processbuilder
+-- desc
+
+## yyMMdd hhMM zzz
+
+comment author : 
+
+-- comment
+
+-- comment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

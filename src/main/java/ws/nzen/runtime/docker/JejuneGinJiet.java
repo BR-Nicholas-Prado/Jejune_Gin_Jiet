@@ -38,6 +38,12 @@ public class JejuneGinJiet implements Runnable
 
 	public void run()
 	{
+		/*
+		parse config
+		resolve variables
+		convert to docker containers and instructions
+		run the recipes of each
+		*/
 		throw new RuntimeException( "JGJ not yet implemented" );
 	}
 	/*
