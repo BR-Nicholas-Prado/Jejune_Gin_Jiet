@@ -1,5 +1,5 @@
 /* see ../../../../../LICENSE for release details */
-package ws.nzen.runtime.docker.jgj;
+package ws.nzen.runtime.docker.jgj_legacy;
 
 import java.util.Map;
 import java.util.Set;

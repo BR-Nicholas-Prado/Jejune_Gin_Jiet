@@ -80,7 +80,7 @@
 				enohar
 				</artifactId>
 			<version>
-				0.0-alpha.8.0+j8
+				0.0-alpha.8.0+j8-SNAPSHOT
 				</version>
 			</dependency>
 		<dependency>
@@ -325,13 +325,13 @@
 	<developers>
 		<developer>
 			<id>
-				Nzen
+				BR-Nicholas-Prado
 				</id>
 				<name>
 					Nicholas Prado
 					</name>
 				<email>
-					nmprado@nzen.ws
+					nick@getworkflo.com
 					</email>
 				<roles>
 					<role>
