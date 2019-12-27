@@ -49,27 +49,16 @@
 				4.0.4
 				</version>
 			</dependency>
-		<!-- this is actually pretty heavy. consider just replicating the flags
 		<dependency>
+			<!-- common logging -->
 			<groupId>
-				com.spotify
+				 org.slf4j
 				</groupId>
 			<artifactId>
-				docker-client
+				slf4j-api
 				</artifactId>
 			<version>
-				8.16.0
-				</version>
-			</dependency> -->
-		<dependency>
-			<groupId>
-				com.github.roadmapper
-				</groupId>
-			<artifactId>
-				dockerfile-java-wrapper
-				</artifactId>
-			<version>
-				0.1.0
+				1.7.30
 				</version>
 			</dependency>
 		<dependency>
@@ -83,6 +72,32 @@
 				0.0-alpha.8.0+j8-SNAPSHOT
 				</version>
 			</dependency>
+		<!-- this is actually pretty heavy. consider just replicating the flags
+		<dependency>
+			<groupId>
+				com.spotify
+				</groupId>
+			<artifactId>
+				docker-client
+				</artifactId>
+			<version>
+				8.16.0
+				</version>
+			</dependency> -->
+		<!--
+		not yet used
+		<dependency>
+			<groupId>
+				com.github.roadmapper
+				</groupId>
+			<artifactId>
+				dockerfile-java-wrapper
+				</artifactId>
+			<version>
+				0.1.0
+				</version>
+			</dependency>
+			-->
 		<dependency>
 			<groupId>
 				org.junit.jupiter
