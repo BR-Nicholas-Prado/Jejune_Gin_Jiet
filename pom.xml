@@ -39,6 +39,7 @@
 			</dependency>
 			-->
 		<dependency>
+			<!-- cli arg parsing -->
 			<groupId>
 				info.picocli
 				</groupId>
@@ -62,6 +63,19 @@
 				</version>
 			</dependency>
 		<dependency>
+			<!-- common logging -->
+			<groupId>
+				 org.slf4j
+				</groupId>
+			<artifactId>
+				slf4j-simple
+				</artifactId>
+			<version>
+				1.7.30
+				</version>
+			</dependency>
+		<dependency>
+			<!-- one input format -->
 			<groupId>
 				ws.nzen.format.eno
 				</groupId>
@@ -70,6 +84,30 @@
 				</artifactId>
 			<version>
 				0.0-alpha.8.0+j8-SNAPSHOT
+				</version>
+			</dependency>
+		<dependency>
+			<!-- generate password -->
+			<groupId>
+				com.google.crypto.tink
+				</groupId>
+			<artifactId>
+				tink
+				</artifactId>
+			<version>
+				1.3.0-rc3
+				</version>
+			</dependency>
+		<dependency>
+			<!-- extract password -->
+			<groupId>
+				org.json
+				</groupId>
+			<artifactId>
+				json
+				</artifactId>
+			<version>
+				20160807
 				</version>
 			</dependency>
 		<!-- this is actually pretty heavy. consider just replicating the flags

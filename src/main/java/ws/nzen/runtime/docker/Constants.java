@@ -11,9 +11,6 @@ public class Constants
 	public static String RUN_F_ENVIRONM_VAR = "e";
 	public static String RUN_F_HOSTNAME = "hostname";
 	public static String RUN_F_CONT_NAME = "name";
-	public static String RUN_VAL_ALWAYS = "always";
-	public static String RUN_VAL_NO = "no";
-	public static String RUN_VAL_ONCE = "once";
 	// public static String RUN_ = "";
 
 	public Constants()

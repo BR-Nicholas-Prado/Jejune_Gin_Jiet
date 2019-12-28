@@ -3,6 +3,7 @@ package ws.nzen.runtime.docker.jgj;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,17 +13,69 @@ import org.slf4j.LoggerFactory;
 /**  */
 public class JgJiet
 {
-    private final Logger outChannel = LoggerFactory.getLogger( JgJiet.class );
+	private final Logger outChannel = LoggerFactory.getLogger( JgJiet.class );
+	private String siteName = "";
 	private List<BaseContainer> containers = new ArrayList<>();
 	private List<ContainerDependence> dependencies = new ArrayList<>();
 	private List<JgjTask> recipe = new LinkedList<>();
 
 
-	/** resolves or throws  */
+	/** resolves or throws RuntimeException if dependee
+	* of the specified name isn't defined. */
 	public void resolveDependencies()
 	{
-		
-		
+		for ( ContainerDependence currPair : dependencies )
+		{
+			if ( currPair.getDepender() != null && currPair.getDependee() != null )
+				continue; // NOTE already resolved
+			if ( currPair.getDependee() == null )
+			{
+				boolean found = false;
+				for ( BaseContainer dependeeCandidate : containers )
+				{
+					if ( dependeeCandidate.getName().equals( currPair.getDependeeName() ) )
+					{
+						currPair.setDependee( dependeeCandidate );
+						found = true;
+						break;
+					}
+				}
+				if ( ! found )
+					throw new RuntimeException(
+							"Dependee with name "
+							+ currPair.getDependeeName()
+							+" for depender "
+							+ currPair.getDependerName() );
+			}
+			if ( currPair.getDepender() == null )
+			{
+				boolean found = false;
+				for ( BaseContainer dependerCandidate : containers )
+				{
+					if ( dependerCandidate.getName().equals( currPair.getDependerName() ) )
+					{
+						currPair.setDepender( dependerCandidate );
+						found = true;
+						break;
+					}
+				}
+				if ( ! found )
+					throw new RuntimeException(
+							"Depender with name "
+							+ currPair.getDependerName()
+							+" for dependee "
+							+ currPair.getDependeeName() );
+			}
+		}
+	}
+
+
+	public void resolveTasks()
+	{
+		for ( JgjTask task : recipe )
+		{
+			
+		}
 	}
 
 
@@ -68,7 +121,8 @@ public class JgJiet
 	}
 
 
-	public void addTask( JgjTask step )
+	public void addTask(
+			JgjTask step, Collection<String> namesOfRelevantContainers )
 	{
 		if ( step == null || step.getTaskType() == null )
 			return;
@@ -77,8 +131,30 @@ public class JgJiet
 			if ( existing.getTaskType() == step.getTaskType() )
 				return;
 		}
+		for ( String desired : namesOfRelevantContainers )
+		{
+			for ( BaseContainer candidate : containers )
+			{
+				if ( candidate.getName().equals( desired ) )
+				{
+					step.addRelevantContainer( candidate );
+					break;
+				}
+			}
+		}
 		recipe.add( step );
 	}
+
+
+	public String getSiteName()
+	{
+		return siteName;
+	}
+	public void setSiteName( String siteName )
+	{
+		this.siteName = siteName;
+	}
+
 }
 
 
