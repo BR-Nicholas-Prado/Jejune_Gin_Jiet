@@ -74,7 +74,7 @@ public class JgJiet
 	{
 		for ( JgjTask task : recipe )
 		{
-			
+			task.resolve();
 		}
 	}
 

@@ -7,8 +7,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ws.nzen.runtime.docker.Constants;
-import ws.nzen.runtime.docker.Mapping;
+import ws.nzen.runtime.bash.Script;
+import ws.nzen.runtime.docker.Runtime;
 
 /**  */
 public class JgjTask
@@ -27,25 +27,15 @@ public class JgjTask
 			return;
 		for ( BaseContainer currContainer : relevant )
 		{
-			outChannel.info( "#!/bin/sh" );
-			outChannel.info( System.lineSeparator() );
-			outChannel.info( "docker stop "+ currContainer.getName() );
-			outChannel.info( "docker rm "+ currContainer.getName() );
-			StringBuilder runArgs = new StringBuilder( 200 );
-			if ( ! currContainer.getPorts().isEmpty() )
-			{
-				runArgs.append( " -" );
-				runArgs.append( Constants.RUN_F_PORT );
-				runArgs.append( " " );
-				for ( Mapping port : currContainer.getPorts() )
-				{
-					runArgs.append( port.outside );
-					runArgs.append( " " );
-					runArgs.append( port.inside );
-				}
-			}
-			outChannel.info( "docker run "+ runArgs.toString()
-					+" "+ currContainer.getName() );
+			Script lignuxInstructions = new Script();
+			lignuxInstructions.addCommand( Runtime.shStopContainer( currContainer ) );
+			lignuxInstructions.echoPreviousCommand();
+			lignuxInstructions.addCommand( Runtime.shRemoveContainer( currContainer ) );
+			lignuxInstructions.echoPreviousCommand();
+			lignuxInstructions.addCommand( Runtime.shRunContainer( currContainer ) );
+
+			// FIX let user eat it or define where or something
+			outChannel.info( lignuxInstructions.toString() );
 		}
 	}
 

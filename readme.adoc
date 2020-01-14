@@ -9,7 +9,7 @@ Run some docker containers with the assumption that they'll share some informati
 
 `java -jar jejune_gin_jiet-vXX.jar -c config.eno`
 
--c is a command line argument to proceed a configuration file. It is currently capable of consuming an eno file.
+-c is a command line argument to process a configuration file. JGJ is currently capable of consuming an eno file.
 
 == License
 
