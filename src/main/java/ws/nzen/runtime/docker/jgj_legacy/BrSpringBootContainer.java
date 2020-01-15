@@ -1,7 +1,8 @@
 /** see license for release terms */
 package ws.nzen.runtime.docker.jgj_legacy;
 
-import ws.nzen.runtime.docker.Mapping;
+import ws.nzen.runtime.docker.container.EnvironmentVariable;
+import ws.nzen.runtime.docker.container.PortMapping;
 import ws.nzen.runtime.docker.jgj.BaseContainer;
 import ws.nzen.runtime.docker.jgj.ContainerType;
 
@@ -18,16 +19,18 @@ public class BrSpringBootContainer
 	{
 		if ( another.getOwnType() == ContainerType.RABBIT_MQ )
 		{
-			for ( Mapping portPair : another.getPorts() )
+			for ( PortMapping portPair : another.getPorts() )
 			{
-				if ( (Integer)portPair.inside == 5672 )
+				if ( portPair.getInside().equals( RabbitMqContainer.CANON_PORT ) )
 				{
-					Mapping rmqPort = new Mapping();
-					rmqPort.outside = "SPRING_RABBITMQ_PORT";
-					rmqPort.inside = portPair.outside;
+					EnvironmentVariable rmqPort = new EnvironmentVariable(
+							"SPRING_RABBITMQ_PORT",
+							portPair.getOutside() );
+					addEnviroVar( rmqPort );
 					break;
 				}
 			}
+			// FIX add the credentials
 		}
 		else if ( another.getOwnType() == ContainerType.MONGO_DB )
 		{

@@ -37,7 +37,7 @@ public class Script
 		{
 			if ( ! System.lineSeparator().equals( lines.get( ind ) ) )
 			{
-				lines.add( lines.get( ind ) );
+				lines.add( "echo "+ lines.get( ind ) );
 				// NOTE possibly some escaping issues here
 				return this;
 			}
