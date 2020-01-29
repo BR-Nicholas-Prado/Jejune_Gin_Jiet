@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import ws.nzen.runtime.docker.jgj_legacy.DockerRunArg;
+import ws.nzen.runtime.docker.jgj.container.DockerRunArg;
 
 /**  */
 public class Container

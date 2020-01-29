@@ -1,5 +1,5 @@
 /** see license for release terms */
-package ws.nzen.runtime.docker.jgj_legacy;
+package ws.nzen.runtime.docker.jgj.container;
 
 import ws.nzen.runtime.docker.container.EnvironmentVariable;
 import ws.nzen.runtime.docker.container.PortMapping;
@@ -7,7 +7,7 @@ import ws.nzen.runtime.docker.jgj.BaseContainer;
 import ws.nzen.runtime.docker.jgj.ContainerType;
 
 /**  */
-public class BrSpringBootContainer
+public class BrSpringBoot
 		extends BaseContainer
 {
 	private String executableName;
@@ -21,7 +21,7 @@ public class BrSpringBootContainer
 		{
 			for ( PortMapping portPair : another.getPorts() )
 			{
-				if ( portPair.getInside().equals( RabbitMqContainer.CANON_PORT ) )
+				if ( portPair.getInside().equals( RabbitMq.CANON_PORT ) )
 				{
 					EnvironmentVariable rmqPort = new EnvironmentVariable(
 							"SPRING_RABBITMQ_PORT",

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import ws.nzen.runtime.docker.container.PasswordCredential;
 import ws.nzen.runtime.docker.container.PortMapping;
 import ws.nzen.runtime.docker.container.VolumeMapping;
-import ws.nzen.runtime.docker.jgj_legacy.RabbitMqContainer;
+import ws.nzen.runtime.docker.jgj.container.RabbitMq;
 
 /**  */
 public class HandTests
@@ -29,10 +29,10 @@ public class HandTests
 
 	public void checkJgjDeal()
 	{
-		RabbitMqContainer rmq = null;
+		RabbitMq rmq = null;
 		try
 		{
-			rmq = new RabbitMqContainer(
+			rmq = new RabbitMq(
 					"openjdk-rmq",
 					"sudo" );
 		}
@@ -42,8 +42,8 @@ public class HandTests
 			return;
 		}
 		rmq.addPortMapping( new PortMapping(
-				RabbitMqContainer.CANON_PORT,
-				RabbitMqContainer.CANON_PORT ) );
+				RabbitMq.CANON_PORT,
+				RabbitMq.CANON_PORT ) );
 		rmq.addVolumeMapping( new VolumeMapping( rmq.getName(), "/var/lib/rabbit" ) );
 		Collection<BaseContainer> onlyOne = new LinkedList<>();
 		onlyOne.add( rmq );

@@ -48,6 +48,13 @@ public class Script
 	}
 
 
+	public Script pause()
+	{
+		lines.add( "sleep 1" );
+		return this;
+	}
+
+
 	public Script newline()
 	{
 		lines.add( System.lineSeparator() );

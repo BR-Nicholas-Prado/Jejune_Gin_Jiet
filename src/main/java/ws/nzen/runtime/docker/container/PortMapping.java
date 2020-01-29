@@ -18,8 +18,8 @@ public class PortMapping
 	public PortMapping( int outer, int inner )
 	{
 		this(
-				new NetworkPort( outer ),
-				new NetworkPort( inner ) );
+			new NetworkPort( outer ),
+			new NetworkPort( inner ) );
 	}
 
 

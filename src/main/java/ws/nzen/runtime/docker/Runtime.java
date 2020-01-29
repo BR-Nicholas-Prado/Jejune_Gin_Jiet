@@ -1,6 +1,7 @@
 /* see ../../../../../LICENSE for release details */
 package ws.nzen.runtime.docker;
 
+import ws.nzen.runtime.docker.container.BindMount;
 import ws.nzen.runtime.docker.container.EnvironmentVariable;
 import ws.nzen.runtime.docker.container.PortMapping;
 import ws.nzen.runtime.docker.container.VolumeMapping;
@@ -21,6 +22,20 @@ public class Runtime
 	{
 		StringBuilder entireCommand = new StringBuilder();
 		entireCommand.append( executableName +" run "+ target.getName() );
+		//
+		entireCommand.append( " --" );
+		entireCommand.append( Constants.RUN_F_CONT_NAME );
+		entireCommand.append( " " );
+		entireCommand.append( target.getName() );
+		//
+		if ( ! target.getHostName().isEmpty() )
+		{
+			entireCommand.append( " --" );
+			entireCommand.append( Constants.RUN_F_HOSTNAME );
+			entireCommand.append( " " );
+			entireCommand.append( target.getHostName() );
+		}
+		//
 		if ( ! target.getPorts().isEmpty() )
 		{
 			entireCommand.append( " -" );
@@ -31,6 +46,7 @@ public class Runtime
 				entireCommand.append( portPair.toString() );
 			}
 		}
+		//
 		if ( ! target.getVolumes().isEmpty() )
 		{
 			entireCommand.append( " -" );
@@ -39,6 +55,17 @@ public class Runtime
 			for ( VolumeMapping folderPair : target.getVolumes() )
 			{
 				entireCommand.append( folderPair.toString() );
+			}
+		}
+		//
+		if ( ! target.getBindMounts().isEmpty() )
+		{
+			entireCommand.append( " --" );
+			entireCommand.append( Constants.RUN_F_MOUNT );
+			entireCommand.append( " " );
+			for ( BindMount folderPair : target.getBindMounts() )
+			{
+				entireCommand.append( folderPair );
 			}
 		}
 		if ( ! target.getEnvironmentVariables().isEmpty() )

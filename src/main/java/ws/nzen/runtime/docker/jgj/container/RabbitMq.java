@@ -1,10 +1,7 @@
 /** see license for release terms */
-package ws.nzen.runtime.docker.jgj_legacy;
+package ws.nzen.runtime.docker.jgj.container;
 
 import java.security.GeneralSecurityException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import ws.nzen.runtime.docker.container.EnvironmentVariable;
 import ws.nzen.runtime.docker.container.NetworkPort;
@@ -13,15 +10,14 @@ import ws.nzen.runtime.docker.jgj.BaseContainer;
 import ws.nzen.runtime.docker.jgj.ContainerType;
 
 /**  */
-public class RabbitMqContainer extends BaseContainer
+public class RabbitMq extends BaseContainer
 {
 	public static final NetworkPort CANON_PORT = new NetworkPort( 5_672 );
 	public static final String CANON_IMAGE = "rabbitmq:3.7-alpine";
-	private final Logger outChannel = LoggerFactory.getLogger( RabbitMqContainer.class );
 	private PasswordCredential login;
 
 
-	public RabbitMqContainer(
+	public RabbitMq(
 			String container,
 			String username )
 				throws GeneralSecurityException
@@ -32,6 +28,7 @@ public class RabbitMqContainer extends BaseContainer
 			throw new NullPointerException( "name must be chars" );
 		else
 			name = container;
+		hostName = container;
 		login = new PasswordCredential( username );
 		addEnviroVar( new EnvironmentVariable(
 				"RABBITMQ_DEFAULT_USER",
@@ -39,6 +36,19 @@ public class RabbitMqContainer extends BaseContainer
 		addEnviroVar( new EnvironmentVariable(
 				"RABBITMQ_DEFAULT_PASS",
 				login.getUsername() ) );
+	}
+
+
+	public RabbitMq(
+			String container,
+			String username,
+			String image )
+				throws GeneralSecurityException
+	{
+		this( container, username );
+		if ( image == null || image.isEmpty() )
+			throw new NullPointerException( "image must not be blank" );
+		dockerImage = image;
 	}
 
 

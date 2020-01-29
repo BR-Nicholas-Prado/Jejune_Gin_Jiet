@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ws.nzen.runtime.docker.RestartPolicy;
+import ws.nzen.runtime.docker.container.BindMount;
 import ws.nzen.runtime.docker.container.EnvironmentVariable;
 import ws.nzen.runtime.docker.container.PortMapping;
 import ws.nzen.runtime.docker.container.VolumeMapping;
@@ -14,10 +15,12 @@ public class BaseContainer
 {
 	protected String name;
 	protected String dockerImage;
+	protected String hostName;
 	protected RestartPolicy restart = RestartPolicy.NO;
 	protected ContainerType ownType;
 	protected List<PortMapping> ports = new LinkedList<>();
 	protected List<VolumeMapping> volumes = new LinkedList<>();
+	protected List<BindMount> hostMounts = new LinkedList<>();
 	protected List<EnvironmentVariable> environmentVariables = new LinkedList<>();
 
 
@@ -55,6 +58,13 @@ public class BaseContainer
 	}
 
 
+	public BaseContainer addBindMount( BindMount mapping )
+	{
+		hostMounts.add( mapping );
+		return this;
+	}
+
+
 	/** Basically abstract method so container definitions can harvest
 	 * each others ports and things. */
 	public BaseContainer adoptDependency(
@@ -80,6 +90,15 @@ public class BaseContainer
 	public void setDockerImage( String dockerImage )
 	{
 		this.dockerImage = dockerImage;
+	}
+
+	public String getHostName()
+	{
+		return hostName;
+	}
+	public void setHostName( String hostName )
+	{
+		this.hostName = hostName;
 	}
 
 	public ContainerType getOwnType()
@@ -110,6 +129,12 @@ public class BaseContainer
 	public List<VolumeMapping> getVolumes()
 	{
 		return volumes;
+	}
+
+
+	public List<BindMount> getBindMounts()
+	{
+		return hostMounts;
 	}
 
 

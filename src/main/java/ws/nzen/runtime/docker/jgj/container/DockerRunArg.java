@@ -1,10 +1,11 @@
 /* see ../../../../../LICENSE for release details */
-package ws.nzen.runtime.docker.jgj_legacy;
+package ws.nzen.runtime.docker.jgj.container;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+@Deprecated
 /** Single value or map */
 public class DockerRunArg
 {
