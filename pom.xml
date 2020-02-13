@@ -75,18 +75,6 @@
 				</version>
 			</dependency>
 		<dependency>
-			<!-- one input format -->
-			<groupId>
-				ws.nzen.format.eno
-				</groupId>
-			<artifactId>
-				enohar
-				</artifactId>
-			<version>
-				0.0-alpha.8.0+j8-SNAPSHOT
-				</version>
-			</dependency>
-		<dependency>
 			<!-- generate password -->
 			<groupId>
 				com.google.crypto.tink

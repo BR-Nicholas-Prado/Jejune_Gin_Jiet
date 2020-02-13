@@ -25,7 +25,7 @@ public class PasswordCredential
 	private String username;
 	private String password;
 
-	/**  */
+	/** To accommodate passwords made elsewhere */
 	public PasswordCredential( String user, String phrase )
 	{
 		if ( user == null || phrase == null )
