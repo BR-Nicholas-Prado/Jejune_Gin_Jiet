@@ -8,7 +8,7 @@ assignee : Nicholas
 title :
 	| run containers from eno file
 
-status : in progress
+status : cancelled
 
 priority : high
 
@@ -18,12 +18,14 @@ Model containers in memory
 Start specified containers with processbuilder
 -- desc
 
-## yyMMdd hhMM zzz
+## 200225 1314 CST
 
-comment author : 
+comment author : Nicholas
 
 -- comment
+I'm closing this issue as won't do.
 
+Instead, Jejune Gin Jiet will be a library that other software can drive. I intend to have https://github.com/BR-Nicholas-Prado/occupied-urad-okosa[Occupied Urad Okosa] be that front end by consuming an eno file. However, if my compatriot disprefers eno, she can make her own front end.
 -- comment
 
 
